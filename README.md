@@ -12,8 +12,16 @@
 ---
 初始版本，包含文章分类、tag、等blog最基本元素。
 
-已经可以正式上线使用， 后续会加入日历等功能。 
+已经可以正式上线使用， 后续会加入日历等功能。
 
+
+
+
+### 截图
+---
+![image](https://raw.githubusercontent.com/QQun/assets/master/laravel/blog/index.png)
+![image](https://raw.githubusercontent.com/QQun/assets/master/laravel/blog/post.png)
+![image](https://raw.githubusercontent.com/QQun/assets/master/laravel/blog/admin.png)
 
 
 ### 安装
