@@ -21,7 +21,7 @@
                     <small>权限</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="{{ $admin_path }}"><i class="fa fa-dashboard"></i> 主页</a></li>
+                    <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> 主页</a></li>
                     <li class="active">用户管理－权限</li>
                 </ol>
             </section>
@@ -69,10 +69,10 @@
                                                         <td>
 
 
-                                                            <a href="{{ URL($admin_path.'/permissions/'.$dat->id.'/edit') }}"
+                                                            <a href="{{ URL('admin/permissions/'.$dat->id.'/edit') }}"
                                                                class="active" ui-toggle-class>
                                                                 <i class="fa fa-edit text-primary text-active"></i></a>
-                                                            <a href="{{ URL($admin_path.'/permissions/'.$dat->id.'/permission') }}"
+                                                            <a href="{{ URL('admin/permissions/'.$dat->id.'/permission') }}"
                                                                class="active m-l-xs" ui-toggle-class>
                                                                 <i class="fa fa-tasks text-primary text-active"></i></a>
 
@@ -110,7 +110,7 @@
 
 
                         <!--隐藏型删除表单-->
-                        <form action="{{ url($admin_path.'/permissions/') }}" method="POST"
+                        <form action="{{ url('admin/permissions/') }}" method="POST"
                               id="hidden-delete-form"></form>
 
 

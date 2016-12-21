@@ -21,6 +21,11 @@ return [
             3 => ['title' => '文章管理', 'tag' => 'article', 'href' => '/admin/article', 'icon' => ''],
             4 => ['title' => '标签管理', 'tag' => 'tags', 'href' => '/admin/tags', 'icon' => ''],
         ]],
+        3 => ['title' => '用户管理', 'tag' => 'users', 'href' => '#', 'icon' => 'fa-user', 'children' => [
+            2 => ['title' => 'Users', 'tag' => 'users', 'href' => '/admin/users', 'icon' => ''],
+            3 => ['title' => 'Roles', 'tag' => 'roles', 'href' => '/admin/roles', 'icon' => ''],
+            4 => ['title' => 'Permissions', 'tag' => 'permissions', 'href' => '/admin/permissions', 'icon' => ''],
+        ]],
 
 
     ],

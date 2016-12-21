@@ -171,7 +171,7 @@ class UserRepository extends BaseRepository
                     ->where(function ($query) use ($data) {
                         $s_name = e($data['s_name']);
                         if (!empty($s_name)) {
-                            $query->where('username', 'like', '%' . $s_name . '%')
+                            $query->where('name', 'like', '%' . $s_name . '%')
                                 ->orWhere('nickname', 'like', '%' . $s_name . '%');
                             // ->orWhere('realname', 'like', '%'.$s_name.'%');
                         }
@@ -182,7 +182,7 @@ class UserRepository extends BaseRepository
                     ->where(function ($query) use ($data) {
                         $s_name = e($data['s_name']);
                         if (!empty($s_name)) {
-                            $query->where('username', 'like', '%' . $s_name . '%')
+                            $query->where('name', 'like', '%' . $s_name . '%')
                                 ->orWhere('nickname', 'like', '%' . $s_name . '%');
                             // ->orWhere('realname', 'like', '%'.$s_name.'%');
                         }
