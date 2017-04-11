@@ -1,6 +1,32 @@
 <?php
+define('THEMES_NAME', 'themes');
 
+/**
+ * 前台View
+ * @param null $view
+ * @param array $data
+ * @param array $mergeData
+ * @return \Illuminate\Foundation\Application|mixed
+ */
+function siteView($view = null, $data = array(), $mergeData = array())
+{
+    $factory = app('Illuminate\Contracts\View\Factory');
+    if (func_num_args() === 0) {
+        dd($factory);
+        return $factory;
+    }
+    $system = app('App\Repositories\SystemRepository')->getSystemCache();
+    $theme = THEMES_NAME . '.' . $system['themes'];
 
+    return $factory->make($theme . '.' . $view, $data, $mergeData);
+}
+
+/**
+ * 输出Json
+ * @param int $status
+ * @param string $msg
+ * @param null $other
+ */
 function exitJson($status = 1, $msg = '', $other = null)
 {
 
@@ -102,23 +128,6 @@ function title_sub($title, $num = 40)
     return mb_substr($title, 0, $num, 'utf-8');
 }
 
-
-function pgnt($paginate)
-{
-
-    $item_count = $paginate->count();
-    $item_total = $paginate->total();
-    $page_count = $paginate->lastPage();
-    $per_page = $paginate->perPage();
-    $current_page = $paginate->currentPage();
-
-    if (Input::get('paginate_fmt') == 'html')
-        return $paginate->render();
-
-    return compact('item_total', 'item_count', 'page_count', 'per_page', 'current_page');
-}
-
-
 function _log($content = '')
 {
 
@@ -165,41 +174,6 @@ function lang($text)
 }
 
 
-/**
- * 菜单树
- * @param $data 菜单数据
- * @param $pid 顶级分类
- * @return array 格式化后的数组
- */
-function tree($data, $pid)
-{
-    $res = array();
-    if (!is_object($data)) {
-        return array([
-            'id' => 0,
-            'title' => '菜单错误',
-            'icon' => null,
-            'children' => array([
-                'id' => 1,
-                'title' => '联系站长',
-                'url' => 'mailto:tomclub@163.com',
-                'icon' => null,
-            ])
-        ]);
-    }
-    foreach ($data as $k => $v) {
-        if ($pid == $v->pid) {
-            unset($data[$k]);
-            $children = tree($data, $v->id);
-            if (empty($children)) {
-                $res[] = array('id' => $v->id, 'title' => $v->title, 'url' => $v->url, 'icon' => $v->icon);
-            } else {
-                $res[] = array('id' => $v->id, 'title' => $v->title, 'url' => $v->url, 'icon' => $v->icon, 'children' => $children);
-            }
-        }
-    }
-    return $res;
-}
 
 
 function icon($data, $icon)
@@ -331,7 +305,7 @@ function user($ret = 'nickname')
     } else {
         if ($ret === 'object') {
             $user = app()->make('App\Repositories\UserRepository');
-            return $user->manager(1);  //主要为了修正 `php artisan route:list` 命令出错问题
+            return $user->manager(1);
         } else {
             return 'No Auth::check()';
         }

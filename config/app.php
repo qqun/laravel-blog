@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'zh-cn',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -149,6 +149,9 @@ return [
 
         //注册附加验证规则
         'App\Providers\ValidatorServiceProvider',
+
+
+		QQun\UEditor\UEditorServiceProvider::class,
 
 	],
 

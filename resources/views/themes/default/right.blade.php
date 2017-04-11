@@ -1,5 +1,21 @@
 <div class="sidebar">
 
+    <!-- widget about -->
+    <div class="widget custom_widget_about ">
+        <div class="widget-title">
+            <h5>ABOUT ME</h5>
+        </div>
+        <div class="widget-about-thumb text-center">
+            <img src="{{ $user->avatar }}" alt="img" class="img-responsive">
+        </div>
+        <div class="widget-about-content text-center">
+            <p>
+                {{ $user->remark }}
+            </p>
+            <a href="{{ url('about/1') }}" class="read-more-btn">Learn More</a>
+        </div>
+    </div><!-- /.widget -->
+
     <!-- search -->
     <div class="widget widget-search">
         <input type="text" name="keyword" value="" class="search_box">
@@ -33,17 +49,10 @@
                     <h5>Hot Article</h5>
                 </div>
                 <ul>
+                    @inject('homePresenter', '\App\Presenters\HomePresenter')
                     @foreach($artHot as $a)
                         <li>
-                            @if( !empty($a->thumb) )
-                                <div class="widget-img">
-                                    <a href="{{ url('article/'.$a->id) }}">
-                                        <img src="{{ $a->thumb }}" alt="image">
-                                        <div class="widget-overlay"></div>
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            @endif
+                            {!! $homePresenter->showThumb($a) !!}
                             <div class="widget-content">
                                 <h5><a href="{{ url('article/'.$a->id) }}">{{ $a->title }}</a></h5>
                                 <span>{{ $a->created_at->format('d M Y') }}</span>

@@ -1,7 +1,7 @@
-@extends('../blog')
+@extends('themes.default.layouts')
 
 @section('content')
-    @include('../home/header')
+    @include('themes.default.header')
     <div class="row bottom"></div>
 
 
@@ -13,14 +13,10 @@
                 <div class="article-body">
                     <h1 class="title">{{ $article->title }}</h1>
                     <h6>
-                        <span>{{ $article->created_at->format('Y-m-d') }}</span>
-                        @if( !empty($article->getTags) )
-                            <span>Tags:
-                                @foreach($article->getTags as $tag)
-                                    <em>{{ $tag->name }}</em>
-                                @endforeach
-                    </span>
-                        @endif
+                        <span><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+                            {{ $article->created_at->format('Y-m-d') }}</span>
+                        @inject('homePresenter', '\App\Presenters\HomePresenter')
+                        {!! $homePresenter->showTags($article) !!}
                     </h6>
                     <hr>
                     <p>{!! $article->content !!}</p>
@@ -49,13 +45,13 @@
                 </div>
             </div>
             <div class="col-md-4">
-                @include('../home/article_right')
+                @include('themes.default.article_right')
             </div>
 
 
         </div>
     </div>
-    @include('../home/footer')
+    @include('themes.default.footer')
 
     <script type="text/javascript">
         $('#like').on('click', function () {

@@ -15,6 +15,7 @@ class SettingController extends BaseController
         parent::__construct();
         $this->_system = $sys;
 
+//        dd($sys->getSystemCache());
         if (!user('object')->can('manage_setting')) {
             // $this->middleware('deny403');
         }
@@ -30,11 +31,16 @@ class SettingController extends BaseController
     {
         if ($_POST) {
             $inputs = $request->all();
+            $inputs['thumb'] = array_filter($inputs['thumb']);
+            $inputs['thumb'] = implode(',', $inputs['thumb']);
             $this->_system->update(0, $inputs);
+
             $this->infoMsg(url('admin/setting'), "更新配置完成。");
             exit;
         }
         $setting = $this->_system->getAll();
+        $setting['thumb'] = array_filter(explode(',', $setting['thumb']));
+
         return View('admin.setting.index', compact('setting'));
     }
 

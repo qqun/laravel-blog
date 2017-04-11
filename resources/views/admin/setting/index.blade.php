@@ -55,15 +55,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>网址关键字</label>
+                                                <small class="text-green">关键字之间使用英文逗号分割</small>
                                                 <input type="text" class="form-control" name="keywords"
                                                        placeholder="Enter keywords" value="{{ $setting['keywords'] }}">
-                                                <small class="text-green">关键字之间使用英文逗号分割</small>
+
                                             </div>
 
                                             <div class="form-group">
                                                 <label>网址描述</label>
                                                 <textarea class="form-control"
-                                                          name="description"> {{ $setting['description'] }}</textarea>
+                                                          name="description">{{ $setting['description'] }}</textarea>
                                             </div>
 
                                             <div class="form-group">
@@ -85,20 +86,60 @@
 
 
                                     </div><!-- /.tab-pane -->
-                                    <div class="tab-pane" id="tab_2">
+                                    <div class="tab-pane " id="tab_2">
                                         <div class="box-body">
 
                                             <div class="form-group">
                                                 <label>标题图片</label>
-                                                <a href="javascript:void(0);" class="uploadPic" data-id="thumb"><i
-                                                            class="fa fa-fw fa-picture-o"></i>上传</a>
-                                                <a href="javascript:void(0);" class="previewPic" data-id="thumb"><i
-                                                            class="fa fa-fw fa-eye"></i> 预览</a>
-                                                <input type="text" name="thumb" id="thumb" class="form-control"
-                                                       value="{{ $setting['thumb'] }}">
-                                                <div id="layerPreviewPic" style="display: none;"></div>
+                                                <small class="text-blue">作为页面顶部图片,全屏图片建议1920px宽以上,数量5以内</small>
+                                                <div class="form-group">
+                                                    @foreach($setting['thumb'] as $pic)
+                                                        <div style="width:100px; text-align:center; margin: 5px; display:inline-block;"
+                                                             class="image_xc">
+                                                            <input type="hidden" value="{{ $pic }}" name="thumb[]">
+                                                            <a onclick="" href="{{ $pic }}" target="_blank">
+                                                                <img width="100" height="100" src="{{ $pic }}"/>
+                                                            </a>
+                                                            <br>
+                                                            <a href="javascript:void(0)"
+                                                               onclick="ClearPicArr2(this,'{{ $pic }}')">删除</a>
+                                                        </div>
+                                                    @endforeach
+                                                    <div class="image_xc"
+                                                         style="width:100px;height:100px; text-align:center; margin: 5px; display:inline-block;">
+                                                        <input type="hidden" name="thumb[]" value=""/>
+                                                        <a href="javascript:void(0);" class="uploadPic">
+                                                            <img src="/assets/blog/add-button.jpg" width="100"
+                                                                 height="100"/>
+                                                        </a>
+                                                        <br/>
+                                                        <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+                                                    </div>
+                                                </div>
                                                 @include('../admin/widget/upfile')
-                                                <small class="text-green">作为页面顶部图片,全屏图片建议1920px宽以上</small>
+                                                <script type="text/javascript">
+                                                    function ClearPicArr2(obj, path) {
+                                                        // 删除后保存
+                                                        $(obj).parent().remove();
+                                                    }
+
+                                                    function call_back2(paths) {
+                                                        console.log(paths);
+                                                        var last_div = $(".image_xc:last").prop("outerHTML");
+                                                        $(".image_xc:eq(0)").before(last_div);	// 插入一个 新图片
+                                                        $(".image_xc:eq(0)").find('a:eq(0)').attr('href', paths).attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+                                                        $(".image_xc:eq(0)").find('img').attr('src', paths);// 修改他的图片路径
+                                                        $(".image_xc:eq(0)").find('a:eq(1)').attr('onclick', "ClearPicArr2(this,'" + paths + "')").text('删除');
+                                                        $(".image_xc:eq(0)").find('input').val(paths); // 设置隐藏域 要提交的值
+                                                    }
+
+
+                                                    function GetUploadify() {
+                                                        //
+                                                    }
+
+
+                                                </script>
                                             </div>
 
 
@@ -106,21 +147,29 @@
                                     </div><!-- /.tab-pane -->
                                     <div class="tab-pane" id="tab_3">
                                         <div class="box-body">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s,
-                                            when an unknown printer took a galley of type and scrambled it to make a
-                                            type
-                                            specimen book.
-                                            It has survived not only five centuries, but also the leap into electronic
-                                            typesetting,
-                                            remaining essentially unchanged. It was popularised in the 1960s with the
-                                            release of
-                                            Letraset
-                                            sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing
-                                            software
-                                            like Aldus PageMaker including versions of Lorem Ipsum.
+                                            <div class="form-group">
+                                                <label>前台文章列表数量</label>
+                                                <small class="text-blue">参数只影响前台显示</small>
+                                                <input type="text" class="form-control" name="pagesize"
+                                                       placeholder="Enter Size" value="{{ $setting['pagesize'] }}">
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>网站模版</label>
+                                                <small class="text-blue">参数只影响前台显示</small>
+                                                <input type="text" class="form-control" name="themes"
+                                                       placeholder="Enter themes" value="{{ $setting['themes'] }}">
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>网站维护状态提示</label>
+                                                <textarea class="form-control"
+                                                          name="note">{{ $setting['note'] }}</textarea>
+                                            </div>
+
+
                                         </div><!-- /.box-body -->
                                     </div><!-- /.tab-pane -->
 

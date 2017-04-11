@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+    @include('UEditor::head')
     <div class="wrapper">
         @include('../admin/header')
 
@@ -82,7 +82,7 @@
                                                       rel="stylesheet"/>
                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-                                                <select class="js-example-tags form-control" multiple="" tabindex="-1"
+                                                <select class="js-example-tags form-control" multiple="" tabindex="-1" class="form-control"
                                                         aria-hidden="true" name="tags[]">
                                                     @foreach($tagsData as $t)
                                                         <option value="{{ $t->name }}" {{ in_array($t->id, $tags)?'selected':'' }}>{{ $t->name }}</option>
@@ -95,6 +95,7 @@
                                                         tags: true,
                                                     })
                                                     $(".select2-selection--multiple").css('border','1px solid #d2d6de').css('border-radius',0);
+                                                    // $(".select2-container--below").css('width','100%');
 
                                                 </script>
 
@@ -103,8 +104,7 @@
 
                                             <div class="form-group">
                                                 <label>文章内容</label>
-                                                <textarea class="form-control" name="content"
-                                                          id="editorx">{!! $data->content !!}</textarea>
+                                                <script type="text/plain" id="container" name="content">{!! $data->content !!}</script>
                                             </div>
 
 
@@ -189,11 +189,9 @@
 
 
                 <script type="application/javascript">
-                    var editor = CKEDITOR.replace('editorx', {
-                        uiColor: '#ffffff'
+                    var ue = UE.getEditor('container', {
+                        initialFrameHeight : 450,
                     });
-
-                    CKFinder.setupCKEditor(editor, '/js/ckfinder/');
                 </script>
 
 

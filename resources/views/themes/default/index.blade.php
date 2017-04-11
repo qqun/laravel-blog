@@ -1,8 +1,8 @@
-@extends('../blog')
+@extends('themes.default.layouts')
 
 @section('content')
-@include('../home/header')
-@include('../home/slider')
+@include('themes.default.header')
+@include('themes.default.slider')
 
 
         <!-- main-wrapper start -->
@@ -15,12 +15,8 @@
                     @if( count($data) >0)
                         @foreach($data as $a)
                             <article class="post-single post-style-1 post-without-masonary">
-                                @if( !empty($a->thumb) )
-                                    <div class="post-thumb ps-rel">
-                                        <a href="{{ url('article/'.$a->id) }}">
-                                        <img src="{{ $a->thumb }}" alt="img" class="img-responsive"></a>
-                                    </div>
-                                @endif
+                                @inject('homePresenter', '\App\Presenters\HomePresenter')
+                                {!! $homePresenter->indexThumb($a) !!}
                                 <div class="post-wrapper-skw ps-rel">
                                     <div class="post-wrapper">
 
@@ -89,7 +85,7 @@
 
                 </div><!-- /.col-md-8 -->
                 <div class="col-md-4">
-                    @include('../home/right')
+                    @include('themes.default.right')
                 </div><!-- /.col-md-4 -->
             </div><!-- /.row -->
         </div><!-- /.container -->
@@ -99,5 +95,5 @@
 <!-- main-wrapper end -->
 
 
-@include('../home/footer')
+@include('themes.default.footer')
 @endsection

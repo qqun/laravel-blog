@@ -1,7 +1,7 @@
-@extends('../blog')
+@extends('themes.default.layouts')
 
 @section('content')
-    @include('../home/header')
+    @include('themes.default.header')
     <div class="row bottom"></div>
 
     <div class="container">
@@ -26,19 +26,17 @@
                              data-disabled="google,twitter,facebook"></div>
                     </div>
 
-
                 </div>
 
             </div>
             <div class="col-md-4">
-                @include('../home/right')
+                @include('themes.default.right')
             </div>
-
-
-
 
         </div>
     </div>
+
+    @include('themes.default.footer')
 @endsection
 
 

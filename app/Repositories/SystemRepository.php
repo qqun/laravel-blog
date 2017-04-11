@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 use App\Models\System;
+use Cache;
 
 class SystemRepository extends CommonRepository
 {
@@ -44,6 +45,7 @@ class SystemRepository extends CommonRepository
                 ->where('key', trim($key))
                 ->update(['value' => $val]);
         }
+        Cache::forever('system', $inputs);
         return;
     }
 
@@ -56,6 +58,24 @@ class SystemRepository extends CommonRepository
     public function getStatus($key = 'status')
     {
         return $this->model->where('key', trim($key))->pluck('value');
+    }
+
+    /**
+     * 读取系统配置缓存
+     * @return mixed
+     */
+    public function getSystemCache(){
+        $result = [];
+        if(Cache::has('system')) {
+            $result = Cache::get('system');
+        }else{
+            $tmp = $this->model->get()->toArray();
+            foreach($tmp as $key=>$value){
+                $result[$value['key']] = $value['value'];
+            }
+            Cache::forever('system', $result);
+        }
+        return $result;
     }
 
 

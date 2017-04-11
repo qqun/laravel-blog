@@ -21,6 +21,7 @@ class ArticleRepository extends CommonRepository
 {
 
     private $_tags;
+    private $_sys;
 
     /**
      * @param Article $object
@@ -29,18 +30,21 @@ class ArticleRepository extends CommonRepository
      */
     public function __construct(
         Article $object,
-        TagsRepository $tags
+        TagsRepository $tags,
+        SystemRepository $sys
     )
     {
         $this->model = $object;
         $this->_tags = $tags;
+        $this->sys = $sys->getSystemCache();
     }
 
     /**
      * @param array $data
      * @return mixed
      */
-    public function getCount($data = []){
+    public function getCount($data = [])
+    {
         return $this->model
             ->where($data)
             ->count();
@@ -231,10 +235,11 @@ class ArticleRepository extends CommonRepository
             ->increment('hits');
     }
 
-    public function setLike($id){
+    public function setLike($id)
+    {
         return $this->model
-        ->where('id', $id)
-        ->increment('heart');
+            ->where('id', $id)
+            ->increment('heart');
     }
 
 
@@ -244,8 +249,9 @@ class ArticleRepository extends CommonRepository
      * @param int $size
      * @return mixed
      */
-    public function getArticleListByKeyword($key, $size = 10)
+    public function getArticleListByKeyword($key, $size = 1)
     {
+        if ($size == 1) $size = $this->_sys['pagesize'];
         return $this->model
             ->where('title', 'like', "%$key%")
             ->orderBy('id', 'desc')
@@ -258,8 +264,9 @@ class ArticleRepository extends CommonRepository
      * @param int $size
      * @return mixed
      */
-    public function getArticleListByTagsId($id, $size = 10)
+    public function getArticleListByTagsId($id, $size = 1)
     {
+        if ($size == 1) $size = $this->_sys['pagesize'];
         $article = $this->_tags
             ->edit($id)
             ->getArticles;
@@ -273,8 +280,10 @@ class ArticleRepository extends CommonRepository
      * @param int $size
      * @return mixed
      */
-    public function getArticleListByTags($tag, $size = 10)
+    public function getArticleListByTags($tag, $size = 1)
     {
+        if ($size == 1) $size = $this->_sys['pagesize'];
+
         $id = $this->_tags->getTagIdByTag($tag);
         if (!$id) {
             return [];
@@ -290,8 +299,9 @@ class ArticleRepository extends CommonRepository
      * @param int $size
      * @return mixed
      */
-    public function getArticleListByCatId($id, $size = 10)
+    public function getArticleListByCatId($id, $size = 1)
     {
+        if ($size == 1) $size = $this->_sys['pagesize'];
         return $this->model
             ->where('cat_id', $id)
             ->where('status', 1)

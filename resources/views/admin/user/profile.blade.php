@@ -36,7 +36,6 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <form role="form" method="POST" action="{{ url('admin/profile/'.$user->id) }}">
-                            <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <!-- Custom Tabs -->
                             <div class="nav-tabs-custom">

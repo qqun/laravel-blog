@@ -188,7 +188,9 @@
                     var from = "{{$name}}";
                     // parent.$('#' + from).val(data.url);  //回调图片地址到父窗口
                     parent.$("input[name='" + from + "']").val(data.url);
-                    parent.showThumb(data.url);
+//                    parent.showThumb(data.url);
+                    // 添
+                    parent.call_back2(data.url);
                     parent.layer.close(index);
                 }
                 else {

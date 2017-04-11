@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+    @include('UEditor::head')
     <div class="wrapper">
         @include('../admin/header')
 
@@ -29,8 +29,8 @@
 
                 @include('../admin/alert')
 
-                <script src="/js/ckeditor447/ckeditor.js"></script>
-                <script src="/js/ckfinder/ckfinder.js"></script>
+                {{--<script src="/js/ckeditor447/ckeditor.js"></script>--}}
+                {{--<script src="/js/ckfinder/ckfinder.js"></script>--}}
 
 
                 <div class="row">
@@ -102,7 +102,9 @@
 
                                             <div class="form-group">
                                                 <label>文章内容</label>
-                                                <textarea class="form-control" name="content" id="editorx"></textarea>
+                                                <script type="text/plain" id="container" name="content">
+                                                </script>
+
                                             </div>
 
 
@@ -185,11 +187,19 @@
 
 
                 <script type="application/javascript">
+                    /*
                     var editor = CKEDITOR.replace('editorx', {
                         uiColor: '#ffffff'
                     });
-
                     CKFinder.setupCKEditor(editor, '/js/ckfinder/');
+                    */
+                    var ue = UE.getEditor('container', {
+                        initialFrameHeight : 450,
+                    });
+//                    ue.ready(function() {
+                        //此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+                        {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');--}}
+//                    });
                 </script>
 
 

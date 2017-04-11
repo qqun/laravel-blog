@@ -5,18 +5,33 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Cache;
 use View;
 
 class BaseController extends Controller
 {
-    public $head;
+    /**
+     * header 信息
+     * @var
+     */
+    protected $head;
+    /**
+     * 系统设置信息
+     * @var
+     */
+    protected $setting;
 
+    /**
+     * BaseController constructor.
+     */
     public function __construct()
     {
         $system = app('App\Repositories\SystemRepository');
 
-        if (!$system->getStatus()) {
-            die('系统维护,请稍后访问');
+        $this->setting = $system->getSystemCache();
+
+        if (!$this->setting['status']) {
+            die($this->setting['note']);
         }
 
         $nav = app('App\Repositories\NavigationRepository');
@@ -36,11 +51,16 @@ class BaseController extends Controller
         $links = $links->getAll(['status' => 1]);
 
         $user = $users->getUserInfoById(1);
-        $system = $system->getAll();
 
-        $this->head['title'] = $system['title'];
-        $this->head['keyword'] = $system['keywords'];
-        $this->head['description'] = $system['description'];
+        $this->head['title'] = $this->setting['title'];
+        $this->head['keyword'] = $this->setting['keywords'];
+        $this->head['description'] = $this->setting['description'];
+
+        $thumb = explode(',', $this->setting['thumb']);
+        $thumb = array_filter($thumb);
+        if (count($thumb) == 0) {
+            $thumb = ['/assets/blog/bg/single-2.jpg'];
+        }
 
         View::share('nav', $nav);
         View::share('tags', $tags);
@@ -50,6 +70,8 @@ class BaseController extends Controller
         View::share('links', $links);
         View::share('head', $this->head);
         View::share('user', $user);
+        View::share('thumb', $thumb);
+
     }
 
 }

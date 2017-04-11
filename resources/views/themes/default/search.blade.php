@@ -1,22 +1,25 @@
-@extends('../blog')
+@extends('themes.default.layouts')
 
 @section('content')
-    @include('../home/header')
+    @include('themes.default.header')
     <div class="row bottom"></div>
 
+
     <div class="container">
+
         <div class="row">
             <div class="col-md-8">
 
                 <div class="list-style">
 
-                    <div class="title"><i class="fa fa-fw fa-home"></i>文章搜索Tags:{{ $tag }}</div>
+                    <div class="title"><i class="fa fa-fw fa-home"></i>文章搜索关键字:{{ $key }}</div>
                 </div>
 
 
                 @if( count($data) >0 )
                     @foreach($data as $a)
                         <article class="list-single">
+
 
                             <div class="time">{{ $a->created_at->diffForHumans() }}</div>
                             <h2 class="title"><a href="{{ url('article/'.$a->id) }}">{{ $a->title }}</a></h2>
@@ -35,7 +38,9 @@
                         </article>
                     @endforeach
                     <div class="text-center pagination-area">
+                        <?php echo $data->render(); ?>
                     </div>
+
                 @else
 
                     <article class="list-single">
@@ -43,14 +48,16 @@
                     </article>
 
                 @endif
+
             </div>
             <div class="col-md-4">
-                @include('../home/right')
+                @include('themes.default.right')
             </div>
 
 
         </div>
     </div>
+    @include('themes.default.footer')
 @endsection
 
 

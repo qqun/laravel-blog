@@ -32,7 +32,7 @@ class IndexController extends BaseController
         // 可用友情链接
         // 热门Tags 数量13
 
-        return View('home.index', compact('data'));
+        return siteView('index', compact('data'));
     }
 
 

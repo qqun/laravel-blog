@@ -1,16 +1,16 @@
-@extends('../blog')
+@extends('themes.default.layouts')
 
 @section('content')
-@include('../home/header')
+@include('themes.default.header')
 
 
         <!-- slider start -->
 <div class="slider-body">
     <div class="container-fluid">
         <div class="row">
-            @if( !empty($cate->thumb) )
-                <img src="{{ $cate->thumb }}" alt="img" class="img-responsive">
-            @endif
+        @inject('homePresenter', '\App\Presenters\HomePresenter')
+        {!! $homePresenter->cateThumb($cate) !!}
+
         </div>
     </div><!-- /.container-fluid -->
 </div>
@@ -60,7 +60,7 @@
 
         </div>
         <div class="col-md-4">
-            @include('../home/right')
+            @include('themes.default.right')
         </div>
 
 
@@ -68,7 +68,7 @@
 </div>
 
 
-@include('../home/footer')
+@include('themes.default.footer')
 @endsection
 
 

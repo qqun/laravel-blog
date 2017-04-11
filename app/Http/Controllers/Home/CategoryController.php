@@ -33,7 +33,7 @@ class CategoryController extends BaseController
             exitJson(9,'没有这个分类');
         }
         $cate = $this->_cate->getCateInfoByid($id);
-        $data = $this->_article->getArticleListByCatId($id);
+        $data = $this->_article->getArticleListByCatId($id, $this->setting['pagesize']);
         if (empty($data)) {
             exitJson(401,'Category Error!!');
         }
@@ -42,7 +42,7 @@ class CategoryController extends BaseController
         }
 
 
-        return View('home.category', compact('cate', 'data'));
+        return siteView('category', compact('cate', 'data'));
 
     }
 

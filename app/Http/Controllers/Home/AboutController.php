@@ -39,7 +39,7 @@ class AboutController extends BaseController
         // 获取当前用户文章信息
         $user = $this->_user->getUserInfoById($id);
 
-        return View('home.about', compact('user'));
+        return siteView('about', compact('user'));
     }
 
 

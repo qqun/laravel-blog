@@ -29,7 +29,7 @@ class SearchController extends BaseController
         $data = $this->_article
             ->getArticleListByKeyword($key);
 
-        return View('home.search', compact('data', 'key'));
+        return siteView('search', compact('data', 'key'));
 
     }
 
@@ -39,7 +39,7 @@ class SearchController extends BaseController
             return redirect()->action('Home\IndexController@index');
         }
         $data = $this->_article->getArticleListByTags($tag);
-        return View('home.searchTag', compact('data', 'tag'));
+        return siteView('searchTag', compact('data', 'tag'));
     }
 
 }

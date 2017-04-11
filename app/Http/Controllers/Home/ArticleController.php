@@ -39,7 +39,7 @@ class ArticleController extends BaseController
         $this->_article->setHits($id);
 
         $next = $this->_article->getArticleByNext($id);
-        return View('home.article', compact('article', 'next'));
+        return siteView('article', compact('article', 'next'));
     }
 
 }
