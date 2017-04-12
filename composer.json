@@ -9,7 +9,8 @@
 		"laravelcollective/html": "5.1.*",
 		"zizaco/entrust": "dev-laravel-5",
 		"suin/php-rss-writer": "^1.5",
-		"nesbot/carbon": "^1.21"
+		"nesbot/carbon": "^1.21",
+		"qqun/laravel-ueditor": "^1.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

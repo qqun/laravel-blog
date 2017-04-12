@@ -72,10 +72,15 @@ Route::group(['prefix' => '/', 'namespace' => 'Home'], function () {
 
 
 // 后台登录
-Route::get('auth/index', 'Admin\AuthController@getIndex');
-Route::get('auth/login', 'Admin\AuthController@getIndex');
-Route::post('auth/login', 'Admin\AuthController@postLogin');
-Route::get('auth/logout', 'Admin\AuthController@getLogout');
+
+
+Route::group(['prefix' => 'auth', 'namespace' => 'Admin'], function () {
+    Route::get('/index', 'AuthController@getIndex');
+    Route::get('/login', 'AuthController@getIndex');
+    // Route::get(['/index','/login'], 'AuthController@getIndex');
+    Route::post('/login', 'AuthController@postLogin');
+    Route::get('/logout', 'AuthController@getLogout');
+});
 
 
 // 后台管理
@@ -90,7 +95,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/clear', 'BaseController@getRefreshCache');
 
     //个人资料
-    Route::match(['get', 'post'], '/profile', 'UsersController@profile');
+    Route::match(['get', 'post'], '/profile/{id?}', 'UsersController@profile');
 
     Route::match(['get', 'post'], '/setting', 'SettingController@index');
 
