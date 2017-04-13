@@ -66,18 +66,15 @@
                                                 <td class="text-green">{{ $dat->name }}</td>
                                                 <td>{{ $dat->url }}</td>
                                                 <td>{!! getStatus($dat->status, $dat->id) !!}</td>
-
                                                 <td>
+                                                    <a href="{{ URL('/admin/links/'.$dat->id.'/edit') }}"
+                                                       class="X-Small btn-xs text-success">
+                                                        <i class="fa fa-fw fa-edit"></i>编辑</a>
 
-
-                                                    <a href="{{ URL('/admin/links/'.$dat->id.'/edit') }}" class="active"
-                                                       ui-toggle-class>
-                                                        <i class="fa fa-fw fa-edit text-primary"></i></a>
-
-                                                    <a href="javascript:void(0);" class="active m-l-xs m-l trash"
-                                                       ui-toggle-class data-id="{{ $dat->id }}">
-                                                        <i class="fa fa-fw fa-trash text-danger"></i></a>
-
+                                                    <a href="javascript:void(0);"
+                                                       class="X-Small btn-xs text-danger trash"
+                                                       data-id="{{ $dat->id }}">
+                                                        <i class="fa fa-fw fa-trash-o"></i>删除</a>
                                                 </td>
                                             </tr>
                                         @endforeach

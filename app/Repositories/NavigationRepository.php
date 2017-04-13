@@ -24,4 +24,14 @@ class NavigationRepository extends CommonRepository
         return $this->model->where('status', 1)->get();
     }
 
+    /**
+     * 排序
+     * @param $list
+     */
+    public function setSort($list){
+        foreach ($list as $key => $value) {
+            $this->model->where('id', $key)->update(['sort'=>$value]);
+        }
+    }
+
 }

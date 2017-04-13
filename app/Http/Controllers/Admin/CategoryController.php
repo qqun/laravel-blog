@@ -38,7 +38,7 @@ class CategoryController extends BaseController
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $data = $this->model->index();
+        $data = $this->model->index([],[['id','desc']]);
 //		$category = Category::get();
         return View('admin.content.category', compact('data'));
     }

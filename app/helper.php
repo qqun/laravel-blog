@@ -174,8 +174,6 @@ function lang($text)
 }
 
 
-
-
 function icon($data, $icon)
 {
     return empty($data) ? $icon : $data;
@@ -313,6 +311,7 @@ function user($ret = 'nickname')
 }
 
 
+
 function getStatus($status, $id = 0, $type = 'status')
 {
     // return intval($status) == 1 ? '启用' : '禁用';
@@ -320,3 +319,4 @@ function getStatus($status, $id = 0, $type = 'status')
         '<i class="fa fa-check text-success status" data-id="' . $id . '" data-status="0" data-type="' . $type . '"></i>' :
         '<i class="fa fa-ban text-danger status" data-id="' . $id . '" data-status="1" data-type="' . $type . '"></i>';
 }
+

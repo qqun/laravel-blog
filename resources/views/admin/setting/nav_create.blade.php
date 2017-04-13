@@ -61,8 +61,10 @@
 
                                             <div class="form-group">
                                                 <label>链接</label>
+                                                <small class="text-blue">导航链接可从分类列表或文章列表获取</small>
                                                 <input type="text" class="form-control"
                                                        placeholder="" name="url" value="{{ Input::old('url') }}">
+
                                             </div>
 
 

@@ -26,6 +26,7 @@ class ArticleRepository extends CommonRepository
     /**
      * @param Article $object
      * @param Tags|\App\Repositories\TagsRepository $tags
+     * @param SystemRepository $sys
      * @internal param Article $article
      */
     public function __construct(

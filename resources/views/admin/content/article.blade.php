@@ -34,97 +34,101 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Custom Tabs -->
-                        <div class="nav-tabs-custom">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">文章列表</a></li>
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">文章列表</h3>
+                                <div class="box-tools">
+                                    <form action="{{ url('admin/article') }}" method="get">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm pull-right" name="title"
+                                                   value="" style="width: 150px;" placeholder="搜索文章标题">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.box-header -->
+
+                            <div class="box-body table-responsive">
+                                <div class="dataTables_wrapper form-inline dt-bootstrap">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <!-- start content category-->
+                                            <table id="example2" class="table table-bordered table-hover dataTable"
+                                                   role="grid">
+                                                <thead>
+                                                <tr role="row">
+                                                    <th>编号</th>
+                                                    <th>标题</th>
+                                                    <th>分类</th>
+                                                    <th>添加时间</th>
+                                                    <th>显示</th>
+                                                    <th>置顶</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
 
 
-                                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab_1">
+                                                @foreach($data as $art)
 
-                                    <!-- start content category-->
-                                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid">
-                                        <thead>
-                                        <tr role="row">
-                                            <th>编号</th>
-                                            <th>标题</th>
-                                            <th>分类</th>
-                                            <th>添加时间</th>
-                                            <th>显示</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                                    <tr role="row" class="odd">
+                                                        <td>{{ $art->id }}</td>
+                                                        <td class="text-green">{{ $art->title }}
+                                                            @if(!empty($art->thumb))<span class="badge">图</span>@endif
+                                                        </td>
+                                                        <td>{{ isset($catData[$art->cat_id])?$catData[$art->cat_id]:'无分类，请编辑' }}</td>
+                                                        <td>{{ $art->created_at }}</td>
+                                                        <td>{!! getStatus($art->status, $art->id) !!}</td>
+                                                        <td>{!! getStatus($art->type, $art->id,'type') !!}</td>
+                                                        <td>
+                                                            <a href="{{ url("article/$art->id") }}" target="_blank">
+                                                                <i class="fa fa-fw fa-external-link"></i>预览
+                                                            </a>
+                                                            <a href="{{ URL('/admin/article/'.$art->id.'/edit') }}"
+                                                               class="X-Small btn-xs text-success">
+                                                                <i class="fa fa-fw fa-edit"></i>编辑</a>
 
+                                                            <a href="javascript:void();"
+                                                               class="X-Small btn-xs text-danger trash"
+                                                               ui-toggle-class data-id="{{ $art->id }}">
+                                                                <i class="fa fa-fw fa-trash-o"></i>删除</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
 
-                                        @foreach($data as $art)
-
-                                            <tr role="row" class="odd">
-                                                <td>{{ $art->id }}</td>
-                                                <td class="text-green">{{ $art->title }}</td>
-                                                <td>{{ isset($catData[$art->cat_id])?$catData[$art->cat_id]:'无分类，请编辑' }}</td>
-                                                <td>{{ $art->created_at }}</td>
-                                                <td>{!! getStatus($art->status, $art->id) !!}</td>
-                                                <td>
+                                                </tbody>
 
 
-                                                    <a href="{{ URL('/admin/article/'.$art->id.'/edit') }}"
-                                                       class="active m-l-xs" ui-toggle-class>
-                                                        <i class="fa fa-fw fa-edit text-primary"></i></a>
+                                            </table>
 
-                                                    <a href="javascript:void();" class="active m-l-xs m-l trash"
-                                                       ui-toggle-class data-id="{{ $art->id }}">
-                                                        <i class="fa fa-fw fa-trash text-danger"></i></a>
+                                            <!-- end -->
 
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                        </tbody>
-
-
-                                    </table>
-
-
-                                    <!-- end -->
-
-                                </div><!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_2">
-                                    <!-- start form category-->
-
-                                    <!-- end -->
-                                </div><!-- /.tab-pane -->
-                                <div class="tab-pane" id="tab_3">
-                                    <!-- start diy category-->
-
-
-                                    <!-- end -->
-                                </div><!-- /.tab-pane -->
-
-
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="dataTables_info page_total">总{{ $data->total() }} 条记录</div>
-                                    </div>
-
-                                    <div class="col-sm-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-
-                                            <?php echo $data->render(); ?>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="dataTables_info page_total">总{{ $data->total() }} 条记录</div>
+                                        </div>
+
+                                        <div class="col-sm-7">
+                                            <div class="dataTables_paginate paging_simple_numbers"
+                                                 id="example2_paginate">
+
+                                                <?php echo $data->render(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-
-
-                            </div><!-- /.tab-content -->
-                        </div><!-- nav-tabs-custom -->
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
                     </div><!-- /.col -->
-
-
                 </div>
 
 
@@ -133,10 +137,9 @@
 
         @include('../admin/footer')
 
-
         <script type="text/javascript" src="/js/action.js"></script>
     </div><!-- ./wrapper -->
 
 
-
 @endsection
+

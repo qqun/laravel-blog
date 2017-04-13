@@ -67,15 +67,16 @@
                                                 <td class="sorting_1">{{ $cat->created_at }}</td>
                                                 <td>{!! getStatus($cat->status, $cat->id) !!}</td>
                                                 <td>
+                                                    <a href="{{ url("category/$cat->id") }}" target="_blank">
+                                                        <i class="fa fa-fw fa-external-link-o"></i>预览
+                                                    </a>
+                                                    <a href="{{ URL('/admin/cate/'.$cat->id.'/edit') }}"
+                                                       class="X-Small btn-xs text-success">
+                                                        <i class="fa fa-fw fa-edit"></i>编辑</a>
 
-
-                                                    <a href="{{ URL('/admin/cate/'.$cat->id.'/edit') }}" class="active"
-                                                       ui-toggle-class>
-                                                        <i class="fa fa-fw fa-edit text-primary"></i></a>
-
-                                                    <a href="javascript:void(0);" class="active m-l-xs m-l trash"
-                                                       ui-toggle-class data-id="{{ $cat->id }}">
-                                                        <i class="fa fa-fw fa-trash text-danger"></i></a>
+                                                    <a href="javascript:void(0);" class="X-Small btn-xs text-danger trash"
+                                                       data-id="{{ $cat->id }}">
+                                                        <i class="fa fa-fw fa-trash-o"></i>删除</a>
 
                                                 </td>
                                             </tr>

@@ -31,5 +31,11 @@ class PermissionController extends BaseController
         return View('admin.user.permission', compact('data'));
     }
 
+    public function edit($id)
+    {
+        $result = Permission::find($id);
+        dd($result);
+    }
+
 
 }

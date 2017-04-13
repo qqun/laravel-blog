@@ -24,7 +24,11 @@ class IndexController extends BaseController
      */
     public function index()
     {
-        $data = $this->_article->index(['status' => 1], [], 6);
+//        $topData = $this->_article->index(['status'=>1,'type'=>1],[],3);
+        $param = [
+            ['where','status = 1'],
+        ];
+        $data = $this->_article->index($param, [['type','desc'],['id','desc']], 6);
         // 新文章列表 数量8
         // 热门文章 数量3
         // 可用导航
@@ -32,7 +36,7 @@ class IndexController extends BaseController
         // 可用友情链接
         // 热门Tags 数量13
 
-        return siteView('index', compact('data'));
+        return siteView('index', compact('data','topData'));
     }
 
 

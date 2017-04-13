@@ -44,12 +44,46 @@ class CommonRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @param array $extra
+     * @param int $size
+     * @return mixed
+     */
     public function index($data = [], $extra = [], $size = 10)
     {
         if ($size == 10) {
             $size = Config::get('site.page_count');
         }
-        return $this->model->where($data)->orderBy('id', 'desc')->paginate($size);
+        $m = $this->model;
+//        $m = $this->model->where($data);
+
+        if (is_array($data) && !empty($data)) {
+            $queryStr = 'where';
+            foreach ($data as $k => $v) {
+                if (!is_array($v[0])) $queryStr = $v[0];
+                $tmp = $v;
+
+                $m = $m->$queryStr(function ($query) use ($tmp) {
+                    $queryStr = $tmp[0];
+                    $w = explode(' ', $tmp[1]);
+                    $query->$queryStr(trim($w[0], ' '), trim($w[1], ' '), trim($w[2], ' '));
+//                    foreach ($tmp as $key => $value) {
+//                        $queryStr = $value[0];
+//                        $w = explode(' ', $value[1]);
+//                        $query->$queryStr(trim($w[0], ' '), trim($w[1], ' '), trim($w[2], ' '));
+//                    }
+                });
+            }
+        }
+        if (is_array($extra) && count($extra) > 0) {
+            foreach ($extra as $k => $v) {
+                $m = $m->orderBy($v[0], $v[1]);
+            }
+        } else {
+            $m = $m->orderBy('id', 'desc');
+        }
+        return $m->paginate($size);
     }
 
     public function update($id, $inputs, $extra = [])
@@ -75,7 +109,7 @@ class CommonRepository extends BaseRepository
     {
         if (!isset($type) || !isset($id) || !isset($status))
             return false;
-        if (in_array($type, ['status']) && in_array($status, [0, 1])) {
+        if (in_array($type, ['status', 'type']) && in_array($status, [0, 1])) {
             return $this->model->where('id', $id)->update(["$type" => $status]);
         }
         return false;

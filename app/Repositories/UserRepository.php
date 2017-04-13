@@ -11,8 +11,6 @@ class UserRepository extends BaseRepository
 {
     /**
      * The Role instance.
-     *
-     * @var App\Models\Role
      */
     protected $role;
 
@@ -20,9 +18,8 @@ class UserRepository extends BaseRepository
      * Create a new UserRepository instance.
      *
      * @param User $user
-     * @param Role|App\Models\Role $role
+     * @param Role $role
      * @internal param App\Models\Content $content
-     * @return \App\Repositories\UserRepository
      */
     public function __construct(
         User $user,
@@ -35,9 +32,9 @@ class UserRepository extends BaseRepository
     /**
      * 存储管理型用户
      *
-     * @param  App\Models\User $manager
+     * @param $manager
      * @param  array $inputs
-     * @return App\Models\User
+     * @return
      */
     private function saveManager($manager, $inputs)
     {
@@ -63,9 +60,8 @@ class UserRepository extends BaseRepository
     /**
      * 更新管理型用户
      *
-     * @param  App\Models\User $manager
+     * @param $manager
      * @param  array $inputs
-     * @return void
      */
     private function updateManager($manager, $inputs)
     {
@@ -104,7 +100,6 @@ class UserRepository extends BaseRepository
     /**
      * 获取所有角色(用户组)
      *
-     * @return Illuminate\Support\Collection
      */
     public function role()
     {
@@ -115,7 +110,6 @@ class UserRepository extends BaseRepository
      * 获取用户角色
      *
      * @param  App\Models\User
-     * @return Illuminate\Support\Collection
      */
     public function getRole($manager)
     {
@@ -125,7 +119,6 @@ class UserRepository extends BaseRepository
     /**
      * 伪造一个id为0的Role对象
      *
-     * @return App\Models\Role
      */
     public function fakeRole()
     {
@@ -138,7 +131,6 @@ class UserRepository extends BaseRepository
      * 获取特定id管理员信息
      *
      * @param  int $id
-     * @return App\Models\User
      */
     public function manager($id)
     {
@@ -155,11 +147,10 @@ class UserRepository extends BaseRepository
      * @param  array $data 额外传入的参数
      * @param  string $size 分页大小
      * @param  boolean $show_all 是否显示所有客户（不限定专属客服）
-     * @return Illuminate\Support\Collection
+     * @return \App\Interfaces\Illuminate\Support\Collection
      */
     public function index($data = [], $type = 'manager', $size = '10', $show_all = false)
     {
-//        dd($data);
         if (!ctype_digit($size)) {
             $size = '10';
         }
@@ -214,7 +205,6 @@ class UserRepository extends BaseRepository
      * @param  array $inputs
      * @param  string $type 用户模型类型 管理型用户manager,客户customer
      * @param  string|int $user_id 管理用户id
-     * @return App\Models\User
      */
     public function store($inputs, $type = 'manager', $user_id = '0')
     {
@@ -231,7 +221,7 @@ class UserRepository extends BaseRepository
      *
      * @param  int $id
      * @param  string $type 用户模型类型 管理型用户manager,客户customer
-     * @return Illuminate\Support\Collection
+     * @return \App\Interfaces\Illuminate\Support\Collection
      */
     public function edit($id, $type = 'manager')
     {
@@ -267,7 +257,7 @@ class UserRepository extends BaseRepository
     public function getUserInfoById($id)
     {
         return $this->model
-            ->select('id', 'name', 'nickname','avatar','email','remark')
+            ->select('id', 'name', 'nickname', 'avatar', 'email', 'remark')
             ->find($id);
     }
 

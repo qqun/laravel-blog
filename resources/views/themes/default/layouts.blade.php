@@ -25,6 +25,18 @@
     <!-- jQuery 2.1.4 -->
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 
+
+    <script type="text/javascript" src="/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+    <link rel="stylesheet" href="/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+    <style>
+        table .code{
+            padding:9.5px 0 9.5px 9.5px!important
+        }
+    </style>
+
 </head>
 <body>
 

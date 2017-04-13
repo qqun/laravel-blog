@@ -70,15 +70,14 @@
 
 
                                                             <a href="{{ URL('admin/permissions/'.$dat->id.'/edit') }}"
-                                                               class="active" ui-toggle-class>
-                                                                <i class="fa fa-edit text-primary text-active"></i></a>
+                                                               class="X-Small btn-xs text-success">
+                                                                <i class="fa fa-edit fa-fw"></i>编辑</a>
                                                             <a href="{{ URL('admin/permissions/'.$dat->id.'/permission') }}"
-                                                               class="active m-l-xs" ui-toggle-class>
-                                                                <i class="fa fa-tasks text-primary text-active"></i></a>
+                                                               class="X-Small btn-xs text-blue">
+                                                                <i class="fa fa-tasks fa-fw"></i>管理</a>
 
-                                                            <a href="javascript:void();" class="active m-l-xs m-l"
-                                                               ui-toggle-class>
-                                                                <i class="fa fa-recycle text-danger text-active"></i></a>
+                                                            <a href="javascript:void();" class="X-Small btn-xs text-danger">
+                                                                <i class="fa fa-trash-o fa-fw"></i>删除</a>
 
                                                         </td>
                                                     </tr>

@@ -11,23 +11,6 @@
 |
 */
 
-//Route::get('/', 'WelcomeController@index');
-
-//Route::get('/tags', 'TagsController@index');
-
-
-// Route::get('home', 'HomeController@index');
-
-// Route::controllers([
-// 	'auth' => 'Auth\AuthController',
-// 	'password' => 'Auth\PasswordController',
-// ]);
-
-
-// Route::get('/ueditor', 'EditorController@ueditor');
-// Route::get('/ue', 'EditorController@ue');
-// Route::get('/ckeditor', 'EditorController@ckeditor');
-
 
 Route::group(['prefix' => '/api/v1'], function () {
     Route::pattern('any', '.*');
@@ -98,6 +81,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::match(['get', 'post'], '/profile/{id?}', 'UsersController@profile');
 
     Route::match(['get', 'post'], '/setting', 'SettingController@index');
+
+    Route::post('/nav/index', 'NavigationController@postIndex');
 
     $controllers = [
         //Article

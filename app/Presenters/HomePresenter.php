@@ -48,6 +48,7 @@ class HomePresenter
             return '<div class="post-thumb ps-rel"><a href="' . url('article/' . $article->id) . '">' .
             '<img src="' . $article->thumb . '" alt="img" class="img-responsive"></a></div>';
         }
+        return '<div style="padding:15px;"></div>';
     }
 
     /**

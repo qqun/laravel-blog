@@ -19,6 +19,6 @@ class ParamError
     public function handle($request, Closure $next)
     {
         return response()->view('admin.error', array(), 404);
-        return $next($request);
+//        return $next($request);
     }
 }

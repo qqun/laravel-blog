@@ -25,20 +25,30 @@
                                         </div>
                                         <div class="post-meta-data">
                                             <div>
-                                            <span class="post-date">
+                                                @if($a->type==1)
+                                                    <span class="label label-default">置顶</span>
+                                                @endif
+                                                <span class="post-date">
                                             <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-                                            {{ $a->created_at->diffForHumans() }}</span>
+                                                    {{ $a->created_at->diffForHumans() }}</span>
 
                                             <span class="post-category">
-                                                <i class="fa fa-fw fa-folder" aria-hidden="true"></i><a href="{{url('category/'.$a->cat_id)}}">Fashion</a></span>
+                                                <i class="fa fa-fw fa-folder" aria-hidden="true"></i><a
+                                                        href="{{url('category/'.$a->cat_id)}}">{{ $a->cat_id }}</a></span>
 
                                             <span class="post-tags">
                                                 <i class="fa fa-fw fa-tag" aria-hidden="true"></i>
-                                                @foreach($a->getTags as $tag)<a href="{{ url('search/tag',['tag'=>urlencode($tag->name)]) }}">{{ $tag->name }}</a> @endforeach
+                                                @foreach($a->getTags as $tag)<a
+                                                        href="{{ url('search/tag',['tag'=>urlencode($tag->name)]) }}">{{ $tag->name }}</a> @endforeach
                                             </span>
 
                                             <span class="post-tags none">
-                                                @foreach($a->getTags as $tag)<a href=""><div class="label label-tag"> <i class="fa fa-fw fa-tag" aria-hidden="true"></i>{{ $tag->name }}</div></a>@endforeach
+                                                @foreach($a->getTags as $tag)<a href="">
+                                                    <div class="label label-tag">
+                                                        <i class="fa fa-fw fa-tag"
+                                                           aria-hidden="true"></i>{{ $tag->name }}
+                                                    </div>
+                                                </a>@endforeach
                                             </span>
 
                                             <span class="comments-no">
@@ -50,9 +60,7 @@
                                         </div>
 
                                         <div class="post-entry">
-                                            <p>
-                                                {{ $a->description }}
-                                            </p>
+                                            <p>{{ $a->description }}</p>
                                         </div>
 
                                         <div class="blog-footer">

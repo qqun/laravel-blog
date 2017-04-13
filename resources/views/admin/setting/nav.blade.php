@@ -44,51 +44,64 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-
-                                    <!-- start content category-->
-                                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid">
-                                        <thead>
-                                        <tr role="row">
-                                            <th>编号</th>
-                                            <th>导航名称</th>
-                                            <th>链接</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-
-                                        @foreach($data as $dat)
-
-                                            <tr role="row" class="odd">
-                                                <td>{{ $dat->id }}</td>
-                                                <td class="text-green">{{ $dat->name }}</td>
-                                                <td>{{ $dat->url }}</td>
-                                                <td>{!! getStatus($dat->status, $dat->id) !!}</td>
-
-                                                <td>
-
-
-                                                    <a href="{{ URL('/admin/nav/'.$dat->id.'/edit') }}" class="active"
-                                                       ui-toggle-class>
-                                                        <i class="fa fa-fw fa-edit text-primary"></i></a>
-
-                                                    <a href="javascript:void(0);" class="active m-l-xs m-l trash"
-                                                       ui-toggle-class data-id="{{ $dat->id }}">
-                                                        <i class="fa fa-fw fa-trash text-danger"></i></a>
-
-                                                </td>
+                                    <form action="{{ url('admin/nav/index') }}" method="post" name="myform">
+                                        <input type="hidden" name="_method" value="POST">
+                                        <!-- start content category-->
+                                        <table id="example2" class="table table-bordered table-hover dataTable"
+                                               role="grid">
+                                            <thead>
+                                            <tr role="row">
+                                                <th width="80">排序</th>
+                                                <th width="50">编号</th>
+                                                <th width="220">导航名称</th>
+                                                <th>链接</th>
+                                                <th width="80">状态</th>
+                                                <th width="120">操作</th>
                                             </tr>
-                                        @endforeach
-
-                                        </tbody>
-
-
-                                    </table>
+                                            </thead>
+                                            <tbody>
 
 
-                                    <!-- end -->
+                                            @foreach($data as $dat)
+
+                                                <tr role="row" class="odd">
+                                                    <td><input name='sort[{{ $dat->id }}]' type='text' size='1'
+                                                               value='{{ $dat->sort }}' class='input-text-c'
+                                                               style="width: 50px"></td>
+                                                    <td>{{ $dat->id }}</td>
+                                                    <td class="text-green">{{ $dat->name }}</td>
+                                                    <td>{{ $dat->url }}</td>
+                                                    <td>{!! getStatus($dat->status, $dat->id) !!}</td>
+
+                                                    <td>
+
+
+                                                        <a href="{{ URL('/admin/nav/'.$dat->id.'/edit') }}"
+                                                           class="X-Small btn-xs text-success">
+                                                            <i class="fa fa-fw fa-edit"></i>编辑</a>
+
+                                                        <a href="javascript:void(0);"
+                                                           class="X-Small btn-xs text-danger trash"
+                                                           data-id="{{ $dat->id }}">
+                                                            <i class="fa fa-fw fa-trash-o"></i>删除</a>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                            </tbody>
+
+
+                                        </table>
+
+                                        <div class="box-footer">
+                                            <input type="submit" class="btn btn-info" value="排序" name="submit"
+                                                   onClick="$('#load').show()">
+                                        </div>
+
+
+                                        <!-- end -->
+                                    </form>
 
                                 </div><!-- /.tab-pane -->
                                 <div class="tab-pane" id="tab_2">

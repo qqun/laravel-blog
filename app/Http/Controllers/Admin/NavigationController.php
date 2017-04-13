@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Requests\NavigationRequest;
+use App\Repositories\CategoryRepository;
 use App\Repositories\NavigationRepository;
 use Illuminate\Http\Request;
 use Input;
@@ -17,13 +18,16 @@ class NavigationController extends BaseController
 
     public $module = 'nav';
     public $parent_module = 'dashboard';
+    private $_cat;
 
     public function __construct(
-        NavigationRepository $nav
+        NavigationRepository $nav,
+        CategoryRepository $cat
     )
     {
         parent::__construct();
         $this->model = $nav;
+        $this->_cat = $cat;
     }
 
     /**
@@ -33,9 +37,24 @@ class NavigationController extends BaseController
      */
     public function index()
     {
-        $data = $this->model->index();
+        $data = $this->model->index([],[['sort','asc']]);
+
         return View('admin.setting.nav', compact('data'));
     }
+
+    public function postIndex(Request $request){
+        $sort = $request->get('sort');
+        if(is_array($sort)){
+            $array = [];
+            foreach($sort as $key=>$value){
+                $array['id'] = $key;
+                $array['sort']  =   $value;
+            }
+            $this->model->setSort($sort);
+            parent::infoMsg(url('admin/nav'),'排序设置完成');
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +63,8 @@ class NavigationController extends BaseController
      */
     public function create()
     {
-        return View('admin.setting.nav_create');
+        $category = $this->_cat->getAll();
+        return View('admin.setting.nav_create', compact('category'));
     }
 
     /**

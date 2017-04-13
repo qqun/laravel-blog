@@ -49,7 +49,14 @@ class ArticleController extends BaseController
     public function index(Request $request)
     {
         $request->all();
-        $data = $this->model->index();
+        $param = [];
+        $title = $request->get('title');
+        if (isset($title ) ) {
+            $param = [
+                ['where',"title like %$title%"],
+            ];
+        }
+        $data = $this->model->index($param, [['id', 'desc']]);
 
         $catData = $this->cate->getAll();
 
@@ -100,6 +107,7 @@ class ArticleController extends BaseController
         $status = (int)Input::get('status');
         switch ($type) {
             case 'status':
+            case 'type':
                 $this->model->updateStatus($type, $id, $status);
                 break;
             default:

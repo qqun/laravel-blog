@@ -7,8 +7,6 @@ abstract class BaseRepository implements IRepository
 
     /**
      * The Model instance.
-     *
-     * @var Illuminate\Database\Eloquent\Model
      */
     protected $model;
 
@@ -16,7 +14,6 @@ abstract class BaseRepository implements IRepository
      * Get Model by id.
      *
      * @param  int $id
-     * @return App\Models\Model
      */
     public function getById($id)
     {
