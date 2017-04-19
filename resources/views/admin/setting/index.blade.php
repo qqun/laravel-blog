@@ -54,6 +54,11 @@
                                                        placeholder="Enter title" value="{{ $setting['title'] }}">
                                             </div>
                                             <div class="form-group">
+                                                <label>副标题</label>
+                                                <input type="text" class="form-control" name="site-description"
+                                                        placeholder="Enter site description" value="{{ $setting['site-description'] }}">
+                                            </div>
+                                            <div class="form-group">
                                                 <label>网址关键字</label>
                                                 <small class="text-green">关键字之间使用英文逗号分割</small>
                                                 <input type="text" class="form-control" name="keywords"

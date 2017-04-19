@@ -55,6 +55,7 @@ class BaseController extends Controller
         $this->head['title'] = $this->setting['title'];
         $this->head['keyword'] = $this->setting['keywords'];
         $this->head['description'] = $this->setting['description'];
+        $this->head['site-description'] = $this->setting['site-description'];
 
         $thumb = explode(',', $this->setting['thumb']);
         $thumb = array_filter($thumb);

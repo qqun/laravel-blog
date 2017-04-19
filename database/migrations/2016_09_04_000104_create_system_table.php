@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateSystemTable extends Migration
 {
@@ -37,7 +37,13 @@ class CreateSystemTable extends Migration
             [
                 'key' => 'thumb',
                 'value' => 'myBlog',
-            ]
+            ],
+            ['key' => 'themes', 'value' => 'default'],
+            ['key' => 'pagesize', 'value' => '10'],
+            ['key' => 'note', 'value' => 'ing...'],
+            ['key' => 'site-description', 'value' => '副标题'],
+
+
         ];
 
         DB::table('systems')->insert($data);
