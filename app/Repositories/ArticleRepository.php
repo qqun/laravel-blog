@@ -22,21 +22,25 @@ class ArticleRepository extends CommonRepository
 
     private $_tags;
     private $_sys;
+    private $_cat;
 
     /**
      * @param Article $object
      * @param Tags|\App\Repositories\TagsRepository $tags
+     * @param CategoryRepository $cat
      * @param SystemRepository $sys
      * @internal param Article $article
      */
     public function __construct(
         Article $object,
         TagsRepository $tags,
+        CategoryRepository $cat,
         SystemRepository $sys
     )
     {
         $this->model = $object;
         $this->_tags = $tags;
+        $this->_cat = $cat;
         $this->sys = $sys->getSystemCache();
     }
 

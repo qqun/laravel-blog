@@ -45,7 +45,36 @@ class BaseController extends Controller
         $nav = $nav->getNavList();
         $artHot = $article->getHot();
         $artNew = $article->getNew();
-        $category = $cate->getAll(['status' => 1]);
+//        $category = $cate->getAll(['status' => 1]);
+        /*
+        $fields = [
+            'categories.id as id',
+            'categories.pid as pid',
+            'categories.title as title',
+            'categories.keywords as keywords',
+            'categories.description as description',
+            'categories.thumb as thumb'
+        ];
+        $param = [
+            'join' => [
+                'articles' => 'articles.cat_id = categories.id'
+            ],
+            'condition' => [
+                ['where', "categories.status = 1"]
+            ],
+        ];
+        $extra = [
+            'order' => [
+                ['categories.sort', 'desc'],
+                ['categories.id', 'desc']
+            ],
+            'group' => 'categories.id',
+        ];
+        $category = $cate->index($fields, $param, $extra, 0);
+        */
+
+        $category = $cate->getAll(['categories.status'=>1]);
+
 
         $tags = $tags->getHot([], 10);
         $links = $links->getAll(['status' => 1]);

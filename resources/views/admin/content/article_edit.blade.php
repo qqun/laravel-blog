@@ -29,10 +29,6 @@
 
                 @include('../admin/alert')
 
-                <script src="/js/ckeditor447/ckeditor.js"></script>
-                <script src="/js/ckfinder/ckfinder.js"></script>
-
-
                 <div class="row">
                     <div class="col-md-12">
                         <form role="form" action="{{ url('admin/article/'.$data->id) }}" method="POST">

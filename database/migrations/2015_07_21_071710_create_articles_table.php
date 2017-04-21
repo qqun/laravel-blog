@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->string('keyword');
             $table->string('description');
 
-            $table->string('content');
+            $table->text('content');
             $table->string('author')->default('');
             $table->string('tags')->default('');
 

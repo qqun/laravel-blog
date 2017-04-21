@@ -17,7 +17,7 @@
                 <ul>
                     @foreach($category as $c)
                         <li class="cat-item cat-item-13"><a href="{{ url('category/'.$c->id) }}">{{ $c->title }}</a>
-                            (74)
+                            ({{ $c->number }})
                         </li>
                     @endforeach
                 </ul>

@@ -10,8 +10,8 @@
     <meta name="description" content="{{ $head['description'] }}"/>
 
 
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300italic,300,400italic,600&subset=latin,latin-ext"
-          rel="stylesheet" type="text/css">
+    {{--<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300italic,300,400italic,600&subset=latin,latin-ext"--}}
+          {{--rel="stylesheet" type="text/css">--}}
 
     <link href="/theme/hueman/fonts/font-awesome.min.css" rel="stylesheet">
 

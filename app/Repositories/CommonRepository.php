@@ -45,10 +45,12 @@ class CommonRepository extends BaseRepository
     }
 
     /**
+     * @param array $fields
      * @param array $data
      * @param array $extra
      * @param int $size
      * @return mixed
+     * @internal param array $fileds
      */
     public function index($data = [], $extra = [], $size = 10)
     {
@@ -58,30 +60,79 @@ class CommonRepository extends BaseRepository
         $m = $this->model;
 //        $m = $this->model->where($data);
 
-        if (is_array($data) && !empty($data)) {
-            $queryStr = 'where';
-            foreach ($data as $k => $v) {
-                if (!is_array($v[0])) $queryStr = $v[0];
-                $tmp = $v;
+//        if (is_array($fields) && count($fields) > 1) {
+//
+//            if (isset($fields['value'])) {
+//                $m = $m->select($fields['value']);
+//            }
+//            if (isset($fields['sql'])) {
+//                echo $fields['sql'];
+//
+//                $m = $m->query($fields['sql']);
+//            }
+//
+//        } else {
+//            $m = $m->select($fields);
 
-                $m = $m->$queryStr(function ($query) use ($tmp) {
-                    $queryStr = $tmp[0];
-                    $w = explode(' ', $tmp[1]);
-                    $query->$queryStr(trim($w[0], ' '), trim($w[1], ' '), trim($w[2], ' '));
+        if (is_array($data) && !empty($data)) {
+            // join
+            if (isset($data['join']) && !empty($data['join'])) {
+                foreach ($data['join'] as $jk => $jv) {
+                    $jOpt = explode('=', $jv);
+                    if (count($jOpt) >= 2) {
+                        $m = $m->join($jk, trim($jOpt[0], ' '), '=', trim($jOpt[1], ' '));
+                    }
+                }
+            }
+            // todo:leftJoin
+
+            // condition
+            if (isset($data['condition']) && !empty($data['condition'])) {
+                $queryStr = 'where';
+
+                foreach ($data['condition'] as $k => $v) {
+                    if (!is_array($v[0])) $queryStr = $v[0];
+                    $tmp = $v;
+
+                    $m = $m->$queryStr(function ($query) use ($tmp) {
+                        $queryStr = $tmp[0];
+                        $w = explode(' ', $tmp[1]);
+                        $query->$queryStr(trim($w[0], ' '), trim($w[1], ' '), trim($w[2], ' '));
 //                    foreach ($tmp as $key => $value) {
 //                        $queryStr = $value[0];
 //                        $w = explode(' ', $value[1]);
 //                        $query->$queryStr(trim($w[0], ' '), trim($w[1], ' '), trim($w[2], ' '));
 //                    }
-                });
+                    });
+
+                }
             }
+
         }
+
+        // 扩展参数
+
         if (is_array($extra) && count($extra) > 0) {
-            foreach ($extra as $k => $v) {
-                $m = $m->orderBy($v[0], $v[1]);
+            if (isset($extra['order'])) {
+                foreach ($extra['order'] as $k => $v) {
+                    $m = $m->orderBy($v[0], $v[1]);
+                }
             }
+
+            if (isset($extra['group'])) {
+                $m = $m->groupBy($extra['group']);
+            }
+
         } else {
             $m = $m->orderBy('id', 'desc');
+        }
+
+        //
+//        }
+
+
+        if ($size == 0) {
+            return $m->get();
         }
         return $m->paginate($size);
     }

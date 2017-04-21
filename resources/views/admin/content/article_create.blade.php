@@ -29,10 +29,6 @@
 
                 @include('../admin/alert')
 
-                {{--<script src="/js/ckeditor447/ckeditor.js"></script>--}}
-                {{--<script src="/js/ckfinder/ckfinder.js"></script>--}}
-
-
                 <div class="row">
                     <div class="col-md-12">
                         <form role="form" action="{{ url('admin/article') }}" method="POST">
@@ -187,12 +183,6 @@
 
 
                 <script type="application/javascript">
-                    /*
-                    var editor = CKEDITOR.replace('editorx', {
-                        uiColor: '#ffffff'
-                    });
-                    CKFinder.setupCKEditor(editor, '/js/ckfinder/');
-                    */
                     var ue = UE.getEditor('container', {
                         initialFrameHeight : 450,
                     });
