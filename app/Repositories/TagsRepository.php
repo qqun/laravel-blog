@@ -27,19 +27,15 @@ class TagsRepository extends CommonRepository
      */
     public function getLists($data = [])
     {
+        $model = $this->model;
+        if(count($data) > 0){
+            $model = $model->where($data);
+        }
 
-        return $this->model->where($data)->lists('name', 'id');
+        return $model->lists('name', 'id');
     }
 
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function getCount($data = []){
-        return $this->model
-            ->where($data)
-            ->count();
-    }
+    
 
 
     /**
@@ -48,12 +44,14 @@ class TagsRepository extends CommonRepository
      * @param int $limit
      * @return mixed
      */
-    public function getHot($data = [], $limit = 10)
+    public function getHot($data = [1=>1], $limit = 10)
     {
-        return $this->model
-            ->where('number', '>', 0)
-            ->where($data)
-            ->orderBy('number', 'desc')
+        $model = $this->model
+            ->where('number', '>', 0);
+        if(count($data) > 0){
+            $model = $model->where($data);
+        }
+        return $model->orderBy('number', 'desc')
             ->limit($limit)
             ->select('id', 'name', 'number')
             ->get();

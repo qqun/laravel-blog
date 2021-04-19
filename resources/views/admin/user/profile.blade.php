@@ -120,9 +120,9 @@
                                             <label for="text">头像</label>
                                             <div style="width:200px;height:200px;position:relative;">
                                                 <input type="hidden" class="form-control" id="thumb" data-id="thumb"
-                                                       name="thumb" value="{{ $user->avatar }}">
+                                                       name="thumb" value="{{ $user->avatar }}" oninput="showThumb(this)">
                                                 {{--<input type="hidden" class="form-control" id="avatarInput" name="avatarInput" value="">--}}
-                                                <img id="avatar" src="{{ $user->avatar }}"
+                                                <img name="avatar" id="avatar" src="{{ $user->avatar }}"
                                                      style="width:200px;height:200px;"/>
                                             </div>
                                         </div>
@@ -150,6 +150,9 @@
         @include('../admin/footer')
         <script src="{!!asset('js/plugins/layer/1.8.5/layer.min.js')!!}"></script>
         <script type="application/javascript">
+   
+
+
             $('#avatar').click(function () {
                 var ele = $(this).data('id');
 
@@ -185,9 +188,16 @@
 
 
             function showThumb(obj) {
+                console.log(obj);
                 $('#avatar').attr('src', obj);
 //                        $('#avatarInput').val(obj);
             }
+
+            function call_back2(obj) {
+                $('#avatar').attr('src', obj);
+            }
+
+
 
         </script>
 

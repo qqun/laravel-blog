@@ -1,0 +1,6 @@
+# 
+
+vendor
+public/uploads
+storage
+.env

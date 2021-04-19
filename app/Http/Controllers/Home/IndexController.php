@@ -30,6 +30,7 @@ class IndexController extends BaseController
         ];
         $data = $this->_article->index($param, [['type','desc'],['id','desc']], 6);
         // 新文章列表 数量8
+        $topData = [];
         // 热门文章 数量3
         // 可用导航
 

@@ -5,14 +5,16 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.1.*",
-		"laravelcollective/html": "5.1.*",
+		"php": "^7.3",
+		"laravel/framework": "^8.0",
+		"laravelcollective/html": "^6.2",
 		"zizaco/entrust": "dev-laravel-5",
-		"suin/php-rss-writer": "^1.5",
-		"nesbot/carbon": "^1.21",
+		"suin/php-rss-writer": "^1.6",
+		"nesbot/carbon": "3.x-dev",
 		"qqun/laravel-ueditor": "^1.1"
 	},
 	"require-dev": {
+		"barryvdh/laravel-debugbar": "^3.5",
 		"phpunit/phpunit": "~4.0",
 		"phpspec/phpspec": "~2.1"
 	},
@@ -45,6 +47,15 @@
 		]
 	},
 	"config": {
+		"optimize-autoloader": true,
 		"preferred-install": "dist"
-	}
+	},
+
+	
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }

@@ -543,7 +543,7 @@ p {
 }
 
 .article-detail img {
-    width: auto;
+    /*width: auto;*/
 }
 
 .article-body {

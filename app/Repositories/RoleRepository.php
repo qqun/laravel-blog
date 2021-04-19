@@ -121,7 +121,7 @@ class RoleRepository extends BaseRepository
      * @param  string|array $extra
      * @return App\Models\Role
      */
-    public function store($inputs, $extra = '')
+    public function store($inputs = [], $extra = '')
     {
         $role = new $this->model;
         $role = $this->saveRole($role, $inputs);
@@ -162,7 +162,7 @@ class RoleRepository extends BaseRepository
      * @param  string|array $extra
      * @return void
      */
-    public function destroy($id, $extra = '')
+    public function destroy($id = 0, $extra = '')
     {
         $role = $this->getById($id);
         $role->delete();

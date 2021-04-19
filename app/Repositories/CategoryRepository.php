@@ -25,21 +25,19 @@ class CategoryRepository extends CommonRepository
             ->first();
     }
 
-    public function getCount($data = [])
-    {
-        return $this->model
-            ->where($data)
-            ->count();
-    }
+
 
     public function getAll($data = [])
     {
-        return $this->model
-            ->join('articles', 'articles.cat_id', '=', 'categories.id')
-            ->select(\DB::raw('categories.id,categories.title,categories.thumb,count(articles.id) as number'))
-            ->where($data)
-            ->groupBy('categories.id')
-            ->get();
+        $model = $this->model
+            // ->join('articles', 'articles.cat_id', '=', 'categories.id')
+            // ->select(\DB::raw('categories.id,categories.title,categories.thumb,count(articles.id) as number'));
+            ->select(['id','pid','title','alias']);
+
+        // if(count($data) > 0){
+            // $model = $model->where($data);
+        // }
+        return $model->groupBy('categories.id')->get();
     }
 
 

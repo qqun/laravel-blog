@@ -163,11 +163,21 @@ class UsersController extends BaseController
 
         if ($_POST) {
             $request = $_REQUEST;
+
             $id = \Auth::user()->id;
             $user = [
                 'name' => \Auth::user()->name,
                 'password' => $request['password_origin'],
             ];
+            if($request['password_origin'] == '')
+            {
+                $this->user->profile($id, [
+                    'nickname' =>  $request['nickname'],
+                    'phone' =>  $request['phone'],
+                    'avatar' =>  $request['thumb'],
+                ]);
+                return Redirect::to('admin/profile')->with('message', '修改管理员资料成功');
+            }
 
             //判断原密码
             if (\Auth::attempt($user)) {

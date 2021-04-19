@@ -41,7 +41,6 @@ class IndexController extends BaseController
             . DB::getDatabaseName()
             . '" order by CREATE_TIME asc limit 1');
 
-
         $data = array(
             'os' => PHP_OS,
             'ip' => $_SERVER['SERVER_ADDR'],
@@ -63,7 +62,6 @@ class IndexController extends BaseController
             'thumb' => 1,
             'up' => 2,
         );
-
 
 
         return View('admin.console', compact('data'));

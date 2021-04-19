@@ -44,16 +44,7 @@ class ArticleRepository extends CommonRepository
         $this->sys = $sys->getSystemCache();
     }
 
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function getCount($data = [])
-    {
-        return $this->model
-            ->where($data)
-            ->count();
-    }
+
 
     /**
      * 更新文章
@@ -165,7 +156,7 @@ class ArticleRepository extends CommonRepository
      * @param array $extra
      * @return array|void
      */
-    public function store($data, $extra = [])
+    public function store($data = [], $extra = '')
     {
         return self::saveData($data);
 
@@ -177,12 +168,12 @@ class ArticleRepository extends CommonRepository
      * @param array $extra
      * @return array|void
      */
-    public function update($id, $inputs, $extra = [])
+    public function update($id = 0, $inputs = [], $extra = '')
     {
         return self::saveData($inputs, $id);
     }
 
-    public function destroy($id, $extra = '')
+    public function destroy($id = 0, $extra = '')
     {
         $data = $this->getById($id);
         $tags = array_build($data->getTags, function ($k, $v) {

@@ -52,7 +52,8 @@ class UploadController extends Controller
             default :
                 $fileType = array_merge($this->thumb_type, $this->file_type);
         }
-        $fileType = (implode($fileType, ','));
+        
+        $fileType = implode(',', $fileType);
 
         return View('admin.upload.upload', compact('fileType', 'type', 'name'));
     }

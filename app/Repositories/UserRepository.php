@@ -154,47 +154,37 @@ class UserRepository extends BaseRepository
         if (!ctype_digit($size)) {
             $size = '10';
         }
+        $s_phone = e($data['s_phone']);
+        $s_name = e($data['s_name']);
+
         if ($type === 'manager') {
-            $s_phone = e($data['s_phone']);
+            $users = $this->model->manager();
             if (!empty($s_phone)) {
-                $users = $this->model->manager()
-                    ->where('phone', '=', $s_phone)
-                    ->where(function ($query) use ($data) {
-                        $s_name = e($data['s_name']);
-                        if (!empty($s_name)) {
-                            $query->where('name', 'like', '%' . $s_name . '%')
-                                ->orWhere('nickname', 'like', '%' . $s_name . '%');
-                            // ->orWhere('realname', 'like', '%'.$s_name.'%');
-                        }
-                    })
-                    ->paginate($size);
-            } else {
-                $users = $this->model->manager()
-                    ->where(function ($query) use ($data) {
-                        $s_name = e($data['s_name']);
-                        if (!empty($s_name)) {
-                            $query->where('name', 'like', '%' . $s_name . '%')
-                                ->orWhere('nickname', 'like', '%' . $s_name . '%');
-                            // ->orWhere('realname', 'like', '%'.$s_name.'%');
-                        }
-                    })
-                    ->paginate($size);
+                $users = $users->where('phone', '=', $s_phone);
             }
+            if(count($data) > 0){
+                
+                $users = $users->where(function ($query) use ($s_name) {
+                        $query->where('name', 'like', '%' . $s_name . '%')
+                              ->orWhere('nickname', 'like', '%' . $s_name . '%');
+                });
+            }
+            $users = $users->paginate($size);
+
+
         } else {
+            $users = $this->model->customer();
             if ($show_all) {
-                $users = $this->model->customer()
-                    ->where('phone', 'like', '%' . e($data['s_phone']) . '%')
+                   $users = $users->where('phone', 'like', '%' . $s_phone . '%');
                     // ->where('realname', 'like', '%'.e($data['s_name']).'%')
-                    ->orderBy('id', 'desc')
-                    ->paginate($size);
+                    
             } else {
-                $users = $this->model->customer()
-                    ->where('phone', 'like', '%' . e($data['s_phone']) . '%')
-                    ->where('realname', 'like', '%' . e($data['s_name']) . '%')
-                    ->where('servicer_id', '=', $data['sid'])
-                    ->orderBy('id', 'desc')
-                    ->paginate($size);
+                $users = $usres->where(function($query) use($s_phone, $s_name, $s_id) {
+                    $query->where('phone', 'like', '%' . $s_phone . '%')
+                    ->orWhere('realname', 'like', '%' . $s_name . '%');
+                });
             }
+            $users = $users->orderBy('id', 'desc')->paginate($size);
         }
         return $users;
     }
@@ -206,7 +196,7 @@ class UserRepository extends BaseRepository
      * @param  string $type 用户模型类型 管理型用户manager,客户customer
      * @param  string|int $user_id 管理用户id
      */
-    public function store($inputs, $type = 'manager', $user_id = '0')
+    public function store($inputs = [], $type = 'manager', $user_id = '0')
     {
         $user = new $this->model;
         if ($type === 'manager') {
@@ -246,6 +236,12 @@ class UserRepository extends BaseRepository
             $user = $this->updateManager($user, $inputs);
         }
         return;
+    }
+
+
+    public function profile($id, $inputs = [])
+    {
+        return $this->model->where('id', $id)->update($inputs);
     }
 
 

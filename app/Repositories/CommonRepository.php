@@ -9,7 +9,7 @@
 namespace App\Repositories;
 
 
-use Config;
+use \Config;
 
 class CommonRepository extends BaseRepository
 {
@@ -17,7 +17,11 @@ class CommonRepository extends BaseRepository
 
     public function getAll($data = [])
     {
-        return $this->model->where($data)->orderBy('id', 'desc')->get();
+        $model = $this->model;
+        if(count($data) > 0){
+            $model = $model->where($data);
+        }
+        return $model->orderBy('id', 'desc')->get();
     }
 
 
@@ -143,13 +147,13 @@ class CommonRepository extends BaseRepository
         return $data;
     }
 
-    public function store($data, $extra = [])
+    public function store($data = [], $extra = '')
     {
         $data = $this->saveDat($this->model, $data);
         return $data;
     }
 
-    public function destroy($id, $extra = '')
+    public function destroy($id = 0, $extra = '')
     {
         $data = $this->getById($id);
         $result = $data->delete();
@@ -164,5 +168,13 @@ class CommonRepository extends BaseRepository
             return $this->model->where('id', $id)->update(["$type" => $status]);
         }
         return false;
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function getCount(){
+            return $this->model->count();
     }
 }
