@@ -1,7 +1,7 @@
 ![build=passing](https://img.shields.io/badge/build-passing-brightgreen.svg?maxAge=2592000)
 [![Latest Unstable Version](https://poser.pugx.org/laravel/laravel/v/unstable)](https://github.com/QQun/laravelBlog)
-![php>=5.6](https://img.shields.io/badge/php->%3D5.6-orange.svg?maxAge=2592000)
-![laravel=5.1](https://img.shields.io/badge/laravel-%3D5.1-green.svg?maxAge=259200)
+![php>=7.3](https://img.shields.io/badge/php->%3D7.3-orange.svg?maxAge=2592000)
+![laravel=8.0](https://img.shields.io/badge/laravel-%3D8.0-green.svg?maxAge=259200)
 [![License](https://poser.pugx.org/laravel/laravel/license)](https://github.com/QQun/laravelBlog)
 
 
