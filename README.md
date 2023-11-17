@@ -100,7 +100,7 @@ chmod -R 777 public/uploads
 
 ###演示
 ---
-演示地址：[http://blog.jdcss.com](http://blog.jdcss.com/)
+演示地址：[https://blog.gelioo.com](https://blog.gelioo.com/)
 
 
 ###其他
